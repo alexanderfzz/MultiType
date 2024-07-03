@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="grooop.mapper.QuoteMapper">
+    <select id="queryAllQuotes" resultType="Quote">
+        select * from quote
+    </select>
+
+    <select id="queryQuoteById" resultType="Quote">
+        select * from quote where id=#{id}
+    </select>
+
+    <insert id="addQuote" parameterType="Quote">
+        insert into quote (content, length, source) values (#{content}, #{length}, #{source})
+    </insert>
+
+    <update id="updateQuote" parameterType="Quote">
+        update user set content=#{content}, length=#{length}, source=#{source} where id=#{id}
+    </update>
+
+    <delete id="deleteQuote" parameterType="int">
+        delete from quote where id=#{id}
+    </delete>
+</mapper>

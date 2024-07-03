@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="grooop.mapper.RecordMapper">
+    <select id="queryAllRecords" resultType="Record">
+        select * from record
+    </select>
+
+    <select id="queryRecordById" resultType="Record">
+        select * from record where id=#{id}
+    </select>
+
+    <select id="queryUserRecords" resultType="Record">
+        select * from record where userId=#{userId}
+    </select>
+
+    <select id="queryQuoteRecords" resultType="Record">
+        select * from record where quoteId=#{quoteId}
+    </select>
+
+    <select id="queryUserQuoteRecords" resultType="Record">
+        select * from record where userId=#{userId} and quoteId=#{quoteId}
+    </select>
+
+    <insert id="addRecord" parameterType="Record">
+        insert into record (userId, quoteId, time, wpm, date) values (#{userId}, #{quoteId}, #{time}, #{wpm}, #{date})
+    </insert>
+
+    <update id="updateRecord" parameterType="Record">
+        update record set userId=#{userId}, quoteId=#{quoteId}, time=#{time}, wpm=#{wpm}, date=#{date} where id=#{id}
+    </update>
+
+    <delete id="deleteRecord" parameterType="int">
+        delete from record where id=#{id}
+    </delete>
+
+    <delete id="deleteUserRecords" parameterType="int">
+        delete from record where userId=#{userId}
+    </delete>
+
+    <delete id="deleteQuoteRecords" parameterType="int">
+        delete from record where quoteId=#{quoteId}
+    </delete>
+
+</mapper>

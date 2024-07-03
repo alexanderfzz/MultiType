@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="grooop.mapper.UserMapper">
+    <select id="queryAllUsers" resultType="User">
+        select * from user
+    </select>
+
+    <select id="queryUserById" resultType="User">
+        select * from user where id=#{id}
+    </select>
+
+    <select id="queryUserByUsername" resultType="User">
+        select * from user where username=#{username}
+    </select>
+
+    <insert id="addUser" parameterType="User">
+        insert into user (username, password, email, average, races) values (#{username}, #{password}, #{email}, #{average}, #{races})
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        update user set username=#{username}, password=#{password}, email=#{email}, average=#{average}, races=#{races} where id=#{id}
+    </update>
+    
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+</mapper>
