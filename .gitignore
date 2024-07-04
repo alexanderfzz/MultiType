@@ -63,3 +63,8 @@ target/
 /**/yarn-debug.log*
 /**/yarn-error.log*
 
+
+# springboot configs
+/**/*.yaml
+/**/*.yml
+/**/*.properties
