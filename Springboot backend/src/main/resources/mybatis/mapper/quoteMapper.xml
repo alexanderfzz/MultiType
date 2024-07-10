@@ -16,7 +16,7 @@
     </insert>
 
     <update id="updateQuote" parameterType="Quote">
-        update user set content=#{content}, length=#{length}, source=#{source} where id=#{id}
+        update quote set content=#{content}, length=#{length}, source=#{source} where id=#{id}
     </update>
 
     <delete id="deleteQuote" parameterType="int">

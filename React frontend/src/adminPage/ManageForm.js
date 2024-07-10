@@ -102,7 +102,7 @@ export default function ManageForm(props) {
           data &&
           data.map((element, elementIndex) => {
 
-            let submittedData = {...requiredFields};
+            let submittedData = {id: element.id, ...requiredFields};
             // this is problematic, the default values of submitted data should not be undefined unlike requiredFields
             
             return <form key={elementIndex} onSubmit={(e) => updateSubmit(e, element.id)}
