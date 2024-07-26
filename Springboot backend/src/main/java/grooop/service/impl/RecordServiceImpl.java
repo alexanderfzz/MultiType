@@ -1,8 +1,9 @@
-package grooop.service;
+package grooop.service.impl;
 
 import grooop.JwtUtil;
 import grooop.mapper.RecordMapper;
 import grooop.pojo.Record;
+import grooop.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

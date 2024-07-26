@@ -1,11 +1,10 @@
-package grooop.service;
+package grooop.service.impl;
 
 import grooop.JwtUtil;
 import grooop.mapper.QuoteMapper;
 import grooop.pojo.Quote;
+import grooop.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,12 +50,12 @@ public class QuoteServiceImpl implements QuoteService {
         if (JwtUtil.validateToken(token)) {
             quote.setLength(quote.getContent().length());
             System.out.println(quote);
-            quoteMapper.updateQuote(quote);
-            return quote;
-        } else {
-            return null;
+                quoteMapper.updateQuote(quote);
+                return quote;
+            } else {
+                return null;
+            }
         }
-    }
 
     @Override
     public boolean deleteQuote(int id, Map<String, String> headers) {
@@ -67,5 +66,11 @@ public class QuoteServiceImpl implements QuoteService {
             quoteMapper.deleteQuote(id);
         }
         return validated;
+    }
+
+    @Override
+    public int queryTableSize() {
+        int tableSize = quoteMapper.queryTableSize();
+        return tableSize;
     }
 }

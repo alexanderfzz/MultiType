@@ -20,7 +20,7 @@ function App() {
   const [letterIndex, setLetterIndex] = useState();
   const [hiddenElementFlags, setHiddenElementFlags] = useState({race: false, result: true});
   const [progress, setProgress] = useState("0%");
-  const [userInfo, setUserInfo] = useState({id: -1, username: "Guest", average: 0, races: 0});
+  const [userInfo, setUserInfo] = useState();
 
   const charAccumulator = useRef(0);
   const timer = useRef({startTime: undefined, timeUsed: undefined});
@@ -56,7 +56,7 @@ function App() {
       if (res.ok) {
         return res.json();
       } else {
-        setUserInfo({id: -1, username: "Guest", average: 0, races: 0});
+        setUserInfo({id: "-1", username: "Guest", average: 0, races: 0});
       }
     })
     .then(data => {
@@ -204,9 +204,11 @@ function App() {
 
 
   function toggleElementToForeground(targetElement) {
+    let tempFlag = {};
     for (var key in hiddenElementFlags) {
-      hiddenElementFlags[key] = !(targetElement === key);
+      tempFlag[key] = !(targetElement === key);
     }
+    setHiddenElementFlags(tempFlag);
   }
 
 
@@ -236,7 +238,7 @@ function App() {
           return res.json(); 
         } else if (res.status === 401) {
           localStorage.removeItem("token");
-          setUserInfo({id: -1, username: "Guest", average: 0, races: 0});
+          setUserInfo({id: "-1", username: "Guest", average: 0, races: 0});
           console.log("login required")
         }
       })
@@ -265,22 +267,25 @@ function App() {
   }
 
 
+
   return (
     <div className="App" >
       <div className="flex justify-end mr-8">
-        {
-          userInfo.id === -1 ? 
-          <Link to="/login" className="text-xl rounded-full bg-indigo-200 px-4 py-1 shadow-sm">Login here</Link> : 
-          <div className="flex-col justify-start items-start">
-            <div className="text-xl text-indigo-500 font-semibold">{userInfo.username}</div>
-            <div className="text-base font-semibold">
-              wpm: <span className="font-normal">{userInfo.average}</span>
+        { !userInfo ? <Link to="/login" className="text-xl rounded-full bg-indigo-200 px-4 py-1 shadow-sm">Login here</Link> :
+          (
+            !(parseInt(userInfo.id) > 0) ?
+            <Link to="/login" className="text-xl rounded-full bg-indigo-200 px-4 py-1 shadow-sm">Login here</Link> : 
+            <div className="flex-col justify-start items-start">
+              <div className="text-xl text-indigo-500 font-semibold">{userInfo.username}</div>
+              <div className="text-base font-semibold">
+                wpm: <span className="font-normal">{userInfo.average}</span>
+              </div>
             </div>
-          </div>
+          )
         }
       </div>
       
-      <ProgressBar playerProgress={[{username: userInfo.username, color: "#c197db", progress: progress}]}/>
+      {userInfo && <ProgressBar playerProgress={{[userInfo.id]: {"userId": userInfo.id, "username": userInfo.username, "progress": progress}}} localUserId={userInfo.id}/>}
       <div id="pageRace" className={"mt-24 mx-40" + (hiddenElementFlags.race ? " hidden" : "")}>
         
         <ContentContainer quote={quote} targetIndex={targetIndex} targetLetterStates={targetLetterStates}/>

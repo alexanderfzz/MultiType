@@ -22,4 +22,8 @@
     <delete id="deleteQuote" parameterType="int">
         delete from quote where id=#{id}
     </delete>
+
+    <select id="queryTableSize" resultType="int">
+        select count(*) from quote
+    </select>
 </mapper>

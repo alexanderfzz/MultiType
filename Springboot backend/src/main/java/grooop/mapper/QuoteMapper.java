@@ -16,4 +16,6 @@ public interface QuoteMapper {
     void updateQuote(Quote quote);
     void deleteQuote(int id);
 
+    int queryTableSize();
+
 }

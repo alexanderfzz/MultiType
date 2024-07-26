@@ -12,4 +12,6 @@ public interface QuoteService {
     Quote updateQuote(Quote quote, Map<String, String> headers, int id);
     boolean deleteQuote(int id, Map<String, String> headers);
 
+    int queryTableSize();
+
 }

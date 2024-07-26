@@ -1,7 +1,7 @@
 package grooop.controller;
 
 import grooop.pojo.User;
-import grooop.service.UserServiceImpl;
+import grooop.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

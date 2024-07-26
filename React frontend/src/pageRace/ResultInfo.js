@@ -39,7 +39,7 @@ export default function ResultInfo(props) {
       </div>
       
       
-
     </div>
   )
 }
+
