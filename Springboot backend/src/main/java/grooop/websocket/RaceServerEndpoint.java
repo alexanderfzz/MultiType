@@ -86,6 +86,8 @@ public class RaceServerEndpoint {
             }
         }
 
+        roomLog();
+
     }
 
 
@@ -133,9 +135,15 @@ public class RaceServerEndpoint {
 //        if (roomMap.size() >= 2) {
 //            primeTest();
 //        }
-        
 
+        roomLog();
+    }
 
+    private void roomLog() {
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println(roomSectionedUserProgress);
+        System.out.println("------------------------------------------------------------------------");
     }
 
     private void primeTest() throws JsonProcessingException {
@@ -153,6 +161,7 @@ public class RaceServerEndpoint {
         sendMessageByRoomId(objectMapper.writeValueAsString(primeMap), this.roomId);
     }
 
+
     private void startTest() throws JsonProcessingException {
         Random random = new Random();
         Map<String, Object> startTestMap = new HashMap<>();
@@ -165,6 +174,7 @@ public class RaceServerEndpoint {
         String returnMessage = objectMapper.writeValueAsString(startTestMap);
         sendToAll(returnMessage);
     }
+
 
     private void getTimer() throws JsonProcessingException {
         long timestamp = System.currentTimeMillis();
@@ -216,11 +226,6 @@ public class RaceServerEndpoint {
         roomRanking.set(1);
 
     }
-
-
-
-
-
 
     private void sendToAll(String message) {
         USER_CLIENT_MAP.values().forEach((item -> {
@@ -274,8 +279,7 @@ public class RaceServerEndpoint {
         } catch (Exception e) {
             System.out.println("Something unexpected occurred during websocket's message transmission to the client! " +
                     "Message content: " + message +
-                    ", sessionId: "+ this.toString() + "____" + e);
+                    ", sessionId: " + this.toString() + "____" + e);
         }
     }
-
 }

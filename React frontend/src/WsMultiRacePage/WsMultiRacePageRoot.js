@@ -86,13 +86,15 @@ export default function WebsocketTestPageRoot() {
    * check for dead connections constantly, or maybe whenever a new player registers
    * 
    * when the client attempt to reopen a closed ws connection, redirect them to a new connection or something...
+   * 
+   * primerace does not work properly
+   *  the command is currently disabled on the server's side, 
+   *  the observed symptoms of the bug include the roomMap being null after the two players register for whatever reason
+   * 
+   * integrate a notification system to let the client know if the websocket needs to be reestablished
    */
   
 
-  
-  // There are, and always will be reasons to believe in the pitiful illusions that are consciouness and freewill
-
-  // stuff and stuff
 
 
   function commandFn(e) {
@@ -113,8 +115,9 @@ export default function WebsocketTestPageRoot() {
       socket.current.send(message);
     }
   }
-  
-  
+
+
+
 
   useEffect(() => {
     socket.current = new WebSocket("ws://localhost:8080/race/"+roomId);
@@ -139,7 +142,8 @@ export default function WebsocketTestPageRoot() {
       console.log("an error has occurred " + e.data);
     }
     
-  
+
+
     
     fetch("http://localhost:8080/log/quote")
       .then(result => result.json())
@@ -196,10 +200,6 @@ export default function WebsocketTestPageRoot() {
 
 
 
-
-
-
-
   function progressUpdate(content) {
     setRaceProgress(content["progress"]);
   }
@@ -250,6 +250,7 @@ export default function WebsocketTestPageRoot() {
 
 
 
+
   function typoCheck() {
     for (let i=0; i<targetLetterStates.length; i++) {
       if (targetLetterStates[i] !== "correct" && targetLetterStates[i] !== "unused") {
@@ -258,12 +259,6 @@ export default function WebsocketTestPageRoot() {
     }
     return true;
   }
-
-
-  /**
-   * 
-   * 
-   * */ 
   
 
 
@@ -295,8 +290,6 @@ export default function WebsocketTestPageRoot() {
   }
 
   
-
-
   function inputUpdate(e) {
     if (!quote || !quoteMeta) {
       return;
@@ -374,7 +367,7 @@ export default function WebsocketTestPageRoot() {
 
 
 
-
+  
   function toggleElementToForeground(targetElement) {
     let tempFlag = {};
     for (var key in hiddenElementFlags) {
