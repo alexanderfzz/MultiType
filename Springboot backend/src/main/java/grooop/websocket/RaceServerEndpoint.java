@@ -90,6 +90,9 @@ public class RaceServerEndpoint {
 
     }
 
+    /*
+    there are certainly things that we can get a foot hold on, especially now that everything's accounted for
+     */
 
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
@@ -135,12 +138,22 @@ public class RaceServerEndpoint {
 //        if (roomMap.size() >= 2) {
 //            primeTest();
 //        }
-
+        clearRoomDeadConnections(this.roomId);
         roomLog();
     }
 
+
+    private void clearRoomDeadConnections(String roomId) {
+        ConcurrentHashMap<String, WsUserInstance> roomMap = roomSectionedUserProgress.get(roomId);
+        for (String key : USER_CLIENT_MAP.keySet()) {
+            if (!USER_CLIENT_MAP.get(key).session.isOpen()) {
+                USER_CLIENT_MAP.remove(key);
+                // todo: should also find the user with this user id and remove them from their room
+            }
+        }
+    }
+
     private void roomLog() {
-        System.out.println("------------------------------------------------------------------------");
         System.out.println("------------------------------------------------------------------------");
         System.out.println(roomSectionedUserProgress);
         System.out.println("------------------------------------------------------------------------");
@@ -160,6 +173,8 @@ public class RaceServerEndpoint {
 
         sendMessageByRoomId(objectMapper.writeValueAsString(primeMap), this.roomId);
     }
+
+
 
 
     private void startTest() throws JsonProcessingException {

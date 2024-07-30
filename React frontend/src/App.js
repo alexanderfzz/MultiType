@@ -15,6 +15,7 @@ export default function App() {
         <Route path="/login" element={<LoginPageRoot/>}/>
         <Route path="/admin" element={<AdminPageRoot/>}/>
         <Route path="/ws/:roomId" element={<WebsocketTestPageRoot/>}/>
+        <Route path="/*" element={<div>404</div>}></Route>
       </Routes>
     </div>
     

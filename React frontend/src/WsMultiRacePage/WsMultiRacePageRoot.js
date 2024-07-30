@@ -118,7 +118,6 @@ export default function WebsocketTestPageRoot() {
 
 
 
-
   useEffect(() => {
     socket.current = new WebSocket("ws://localhost:8080/race/"+roomId);
 
@@ -195,7 +194,8 @@ export default function WebsocketTestPageRoot() {
           v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
-}
+  }
+
 
 
 
@@ -260,6 +260,7 @@ export default function WebsocketTestPageRoot() {
     return true;
   }
   
+
 
 
   function inputReset(newIndex, quoteParam = quote) {
@@ -411,6 +412,7 @@ export default function WebsocketTestPageRoot() {
           let tempGuestId = generateUUID();
           const guestData = {id: tempGuestId.toString(), username: "Guest", average: 0, races: 0};
           setUserInfo(guestData);
+          //boyo (kirby)
           console.log("login required")
         }
       })
